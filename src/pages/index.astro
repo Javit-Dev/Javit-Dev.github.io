@@ -11,17 +11,19 @@ import Projects from '../components/Projects.astro';
 ---
 
 <Layout title="Porfolio de Javi"
-	description="Software developer especializado en desarrollo web y móvil. Apasionado por crear soluciones innovadoras y eficientes que mejoren la experiencia del usuario.">
+	description="Portafolio de proyectos y experiencia de Javi, desarrollador web y móvil.">
 		<main class="px-2">
 			<SectionContainer id="presentacion" class="py-44 pb-32">
-				<img class="rounded-full size-12 mb-4" src="https://avatars.githubusercontent.com/u/82216868?v=4" alt="Foto Javi"/>
-				<h1 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6  lg:pb-10">Soy Javi 
-					<div class="flex justify-center items-center">
-						<Badge>Disponible para trabajar</Badge>
-					</div>
+				<div class="flex flex-row items-center gap-4">
+					<img class="rounded-full size-16 mb-2" src="https://avatars.githubusercontent.com/u/82216868?v=4" alt="Foto Javi"/>
+					<Badge>Disponible para trabajar</Badge>
+				</div>
+
+				<h1 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">Javier Moreno Cano
+
 				</h1> 
 				<h2 class="text-xl lg:text-2xl opacity-80 text-wrap max-w-[700px]">
-					Software developer especializado en desarrollo web y móvil. Apasionado por crear soluciones innovadoras y eficientes que mejoren la experiencia del usuario.
+					Estudiante de último año de Ingeniería Informática y desarrollador web y móvil.
 				</h2>
 				
 				<nav class="flex gap-4 mt-8 flex-wrap">
@@ -37,14 +39,34 @@ import Projects from '../components/Projects.astro';
 				</nav>
 			</SectionContainer>
 
-			<SectionContainer id="experiencia">
-				<h2  class="text-3xl font-semibold mb-6">Experiencia laboral</h2>
+			<SectionContainer id="formacion">
+				<h2  class="text-3xl font-semibold mb-6">Formación</h2>
 				<Experience/>
 			</SectionContainer>
 
 			<SectionContainer id="proyectos">
 				<h2  class="text-3xl font-semibold mb-6">Proyectos</h2>
 				<Projects/>
+			</SectionContainer>
+
+			<SectionContainer id="sobre-mi">
+				<h2  class="text-3xl font-semibold mb-6">Sobre mí</h2>
+				<div class="flex flex-col items-center md:items-start md:flex-row-reverse gap-4">
+					<div class="rounded-2xl ring-2 ring-white/10 border border-white/10  p-2  bg-white/5 shadow-lg">
+						<img class="h-auto w-auto rounded-xl" src="https://avatars.githubusercontent.com/u/82216868?v=4" alt="Foto Javi"/>
+					</div>
+					<div class="space-y-3">
+					<p class="text-base text-pretty opacity-80">
+						Soy un apasionado de la tecnología y el desarrollo de software, siempre buscando aprender y mejorar mis habilidades.
+					</p>
+					<p class="text-base text-pretty opacity-80">
+						Me encanta trabajar en proyectos que desafían mis conocimientos y me permiten crecer profesionalmente.
+					</p>
+					<p class="text-base text-pretty opacity-80">
+						En mi tiempo libre, disfruto explorando nuevas tecnologías, contribuyendo a proyectos de código abierto y compartiendo mis conocimientos con la comunidad.
+					</p>
+					</div>
+				</div>
 			</SectionContainer>
 		</main>
 </Layout>
