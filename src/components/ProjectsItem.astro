@@ -1,18 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import GithubIcon from '../components/icons/socials/GithubIcon.astro';
 
-interface Props{
+export interface Props {
   title: string;
   description: string;
-  image: string;
+  image: ImageMetadata;
   tags: string[];
   link?: string;
   github?: string;
 }
-const { title, description, image, tags, link, github } = Astro.props;
+const { title, description, image, tags, link, github } = Astro.props as Props;
 ---
 <article class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full h-full items-center justify-center border border-white/10 rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/2 hover:from-white/10 hover:to-white/5 transition">
-  <img src={image} alt={title} class="rounded-lg w-full h-64 object-cover" loading="lazy" decoding="async"/>
+  <Image src={image} alt={title} class="rounded-lg w-full h-64 object-cover" loading="lazy" decoding="async"/>
   <div class="flex flex-col gap-2">
     <h1 class="text-3xl font-semibold">{title}</h1>
     <p class="text-white/80">{description}</p>

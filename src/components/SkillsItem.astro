@@ -1,9 +1,9 @@
 ---
-interface SkillItem {
+export interface Props {
   name: string;
   icon: any; 
 };
-const {name, icon: Icon} = Astro.props;
+const {name, icon: Icon} = Astro.props as  Props;
 ---
 
 <div class="flex flex-col items-center gap-2">

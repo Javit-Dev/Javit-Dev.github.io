@@ -1,12 +1,15 @@
 ---
 import ProjectsItem from "./ProjectsItem.astro";
+import type { Props as ProjectItemProps } from "./ProjectsItem.astro";
+import proyecto1 from '../assets/projects/proyecto1.webp';
+import proyecto2 from '../assets/projects/proyecto2.webp';
 
-const PROJECTS = [
+const PROJECTS: ProjectItemProps[] = [
   {
     title: "2ISI",
     description:
       `Dashboard para Discord que recopila datos de tus servidores mediante un Bot y los muestra en gráficos dinámicos e interactivos.`,
-    image: "/projects/proyecto1.webp",
+    image: proyecto1,
     tags: ["Flask", "Angular", "Azure", "Docker", "gRPC"],
     github: "https://github.com/Javit-Dev/isi-2isi",
   },
@@ -14,7 +17,7 @@ const PROJECTS = [
     title: "IPOkemon",
     description:
       `Aplicación de escritorio creada en .NET y C# que permite simular batallas entre Pokémon, desarrollada para la asignatura de IPO 2.`,
-    image: "/projects/proyecto2.webp",
+    image: proyecto2,
     tags: [".NET", "C#", "WPF"],
     github: "https://github.com/Javit-Dev/IPOkemon",
   },

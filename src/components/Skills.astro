@@ -1,5 +1,8 @@
 ---
+
 import SkillsItem from "./SkillsItem.astro";
+import type { Props as SkillsItemProps } from "./SkillsItem.astro";
+
 import PythonIcon from "../components/icons/skills/PythonIcon.astro";
 import JavaIcon from "../components/icons/skills/JavaIcon.astro";
 import CSharpIcon from "../components/icons/skills/CSharpIcon.astro";
@@ -13,21 +16,23 @@ import GitIcon from "../components/icons/skills/GitIcon.astro";
 
 import DockerIcon from "../components/icons/skills/DockerIcon.astro";
 import PostmanIcon from "../components/icons/skills/PostmanIcon.astro";
-const LANGUAGES = [
+
+
+const LANGUAGES: SkillsItemProps[] = [
   { name: "Python", icon: PythonIcon },
   { name: "Java", icon: JavaIcon },
   { name: "C#", icon: CSharpIcon },         
   { name: "TypeScript", icon: TypescriptIcon }
 ];
 
-const FRAMEWORKS = [
+const FRAMEWORKS: SkillsItemProps[] = [
   { name: "Angular", icon: AngularIcon },
   { name: ".NET", icon: NetIcon },
   { name: "Android", icon: AndroidIcon },
   { name: "Spring", icon: SpringIcon }
 ];
 
-const TOOLS = [
+const TOOLS: SkillsItemProps[] = [
   { name: "Git", icon: GitIcon },
   { name: "Docker", icon: DockerIcon },
   { name: "Postman", icon: PostmanIcon }
