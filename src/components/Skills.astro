@@ -9,7 +9,10 @@ import AngularIcon from "../components/icons/skills/AngularIcon.astro";
 import NetIcon from "../components/icons/skills/NetIcon.astro";
 import AndroidIcon from '../components/icons/skills/AndroidIcon.astro';
 import SpringIcon from "../components/icons/skills/SpringIcon.astro";
+import GitIcon from "../components/icons/skills/GitIcon.astro";
 
+import DockerIcon from "../components/icons/skills/DockerIcon.astro";
+import PostmanIcon from "../components/icons/skills/PostmanIcon.astro";
 const LANGUAGES = [
   { name: "Python", icon: PythonIcon },
   { name: "Java", icon: JavaIcon },
@@ -22,6 +25,12 @@ const FRAMEWORKS = [
   { name: ".NET", icon: NetIcon },
   { name: "Android", icon: AndroidIcon },
   { name: "Spring", icon: SpringIcon }
+];
+
+const TOOLS = [
+  { name: "Git", icon: GitIcon },
+  { name: "Docker", icon: DockerIcon },
+  { name: "Postman", icon: PostmanIcon }
 ];
 ---
 
@@ -42,3 +51,12 @@ const FRAMEWORKS = [
       ))}
     </div>
   </article>
+  <article class="border border-white/10 rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/2 hover:from-white/10 hover:to-white/5 transition md:col-span-2">
+    <h3 class="text-2xl font-semibold mb-4 text-center">Herramientas</h3>
+    <div class="grid grid-cols-3 gap-2">
+      {TOOLS.map((tool) => (
+        <SkillsItem {...tool} />
+      ))}
+    </div>
+  </article>
+</section>
