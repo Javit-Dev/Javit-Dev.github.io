@@ -1,82 +1,210 @@
-<header>
-    <nav class="fixed w-full z-20 top-0 start-0 backdrop-blur">
-    <div class="max-w-screen-xl flex items-center justify-center mx-auto p-4 relative">
+---
+import avatar from '../assets/github_profile_pic.jpg';
+import { Image } from 'astro:assets';
+---
+<header class="fixed inset-x-0 top-0 z-50">
+  <nav class="w-full bg-black/20 backdrop-blur-xl">
+    <div class="lg:max-w-4xl md:max-w-2xl mx-auto p-4 flex items-center justify-between relative">
+      <!-- Marca -->
+      <a id="nav-avatar"
+         href="#presentacion"
+         class="flex flex-row gap-2 items-center text-sm font-medium
+                hover:text-black/80 dark:hover:text-white/80
+                transform-gpu transition duration-200 ease-out">
+        <Image src={avatar} alt="Foto Javi"
+               class="w-10 h-10 rounded-full ring-1 ring-black/10 dark:ring-white/10 shadow" loading="eager" decoding="async"/>
+        <span>Javit-Dev</span>
+      </a>
 
-        <!-- Botón hamburguesa (solo mobile) -->
-        <button id="menu-button" type="button"
-        class="md:hidden absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center p-2 w-10 h-10 justify-center
-                text-white rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
-        aria-controls="navbar-sticky" aria-expanded="false">
+      <!-- Desktop nav -->
+      <ul id="desktop-nav" class="hidden md:flex items-center gap-4 font-medium">
+        <li><a href="#formacion"   class="py-2 px-3 hover:opacity-80">Formación</a></li>
+        <li><a href="#proyectos"   class="py-2 px-3 hover:opacity-80">Proyectos</a></li>
+        <li><a href="#sobre-mi"    class="py-2 px-3 hover:opacity-80">Sobre mí</a></li>
+        <li><a href="#habilidades" class="py-2 px-3 hover:opacity-80">Habilidades</a></li>
+        <li><a href="mailto:javitin.dev@gmail.com" class="py-2 px-3 hover:opacity-80">Contacto</a></li>
+      </ul>
+
+      <!-- Botón hamburguesa -->
+      <button id="menu-button" type="button"
+              class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+              aria-controls="mobile-menu" aria-expanded="false">
         <span class="sr-only">Abrir menú</span>
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"/>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
-        </button>
-
-        <!-- Menú -->
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-sticky">
-        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:space-x-4 md:flex-row md:mt-0 md:border-0">
-            <li><a href="#formacion" class="block py-2 px-3 hover:text-black/80 dark:hover:text-white/80 ">Formación</a></li>
-            <li><a href="#proyectos" class="block py-2 px-3 hover:text-black/80 dark:hover:text-white/80">Proyectos</a></li>
-            <li><a href="#sobre-mi" class="block py-2 px-3 hover:text-black/80 dark:hover:text-white/80">Sobre mí</a></li>
-            <li><a href="#habilidades" class="block py-2 px-3 hover:text-black/80 dark:hover:text-white/80">Habilidades</a></li>
-            <li><a href="mailto:javitin.dev@gmail.com" class="block py-2 px-3 hover:text-black/80 dark:hover:text-white/80">Contacto</a></li>
-        </ul>
-        </div>
+      </button>
     </div>
-    </nav>
+  </nav>
 </header>
+
+<!-- Panel móvil: extensión del header, sin backdrop ni bloqueo -->
+<div id="mobile-menu"
+     class="fixed left-0 right-0 top-[var(--header-h,-1px)] z-40 hidden pointer-events-none">
+  <!-- usa mismas max-width y padding lateral que el header -->
+  <div class="lg:max-w-4xl md:max-w-2xl mx-auto pointer-events-auto">
+    <div class="bg-black/20 backdrop-blur-xl">
+      <ul id="mobile-nav" class="flex flex-col items-center justify-center gap-2 text-base font-medium py-4">
+        <li><a class="py-2 px-4" href="#formacion">Formación</a></li>
+        <li><a class="py-2 px-4" href="#proyectos">Proyectos</a></li>
+        <li><a class="py-2 px-4" href="#sobre-mi">Sobre mí</a></li>
+        <li><a class="py-2 px-4" href="#habilidades">Habilidades</a></li>
+        <li><a class="py-2 px-4" href="mailto:javitin.dev@gmail.com">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('menu-button');
-    const menu = document.getElementById('navbar-sticky');
-    if (!menuBtn || !menu) return;
+    // --- Elementos base ---
+    const header     = document.querySelector('header');
+    const navBar     = document.querySelector('header nav');
+    const menuBtn    = document.getElementById('menu-button');
+    const overlay    = document.getElementById('mobile-menu');
+    const navAvatar  = document.getElementById('nav-avatar');
+    const desktopNav = document.getElementById('desktop-nav');
+    const mobileNav  = document.getElementById('mobile-nav');
 
-    // --- Toggle mobile ---
-    menuBtn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-      menuBtn.setAttribute('aria-expanded', menu.classList.contains('hidden') ? 'false' : 'true');
+    if (!menuBtn || !overlay || !desktopNav || !mobileNav || !header || !navBar) return;
+
+    // --- Altura del header (usada por layout/offsets) ---
+    const setHeaderH = () => {
+      const h = header?.offsetHeight || 56;
+      document.documentElement.style.setProperty('--header-h', `${h}px`);
+    };
+    setHeaderH();
+    window.addEventListener('resize', setHeaderH);
+
+    // --- Detección de estado ---
+    const isMenuOpen = () =>
+      !overlay.classList.contains('hidden') &&
+      window.matchMedia('(max-width: 767px)').matches;
+
+    // --- Avatar helpers (tal cual tenías) ---
+    const showAvatar = () => {
+      if (!navAvatar) return;
+      navAvatar.classList.remove('opacity-0','scale-95','pointer-events-none');
+      navAvatar.classList.add('opacity-100','scale-100');
+    };
+    const hideAvatar = () => {
+      if (!navAvatar) return;
+      navAvatar.classList.add('opacity-0','scale-95','pointer-events-none');
+      navAvatar.classList.remove('opacity-100','scale-100');
+    };
+
+    // ===== Header "fantasma" dentro del panel =====
+    // Se crea on-demand al abrir; clona la marca y el botón.
+    let ghostHeader; // cache
+    const ensureGhostHeader = () => {
+      if (ghostHeader) return ghostHeader;
+
+      // Capa con backdrop del panel (el <div> que envuelve al <ul>)
+      const bgLayer =
+        overlay.querySelector(':scope > div > div') ||
+        overlay; // fallback por si cambias el markup
+
+      // Contenedor
+      const bar = document.createElement('div');
+      bar.id = 'mobile-menu-header';
+      bar.className = 'lg:max-w-4xl md:max-w-2xl mx-auto p-4 flex items-center justify-between relative';
+
+      // Marca (clon del avatar/link, sin id duplicado)
+      const brand = navAvatar ? navAvatar.cloneNode(true) : document.createElement('div');
+      brand.removeAttribute('id');
+      bar.appendChild(brand);
+
+      // Botón "cerrar" (clon del hamburguesa, mismo estilo)
+      const closeBtn = menuBtn.cloneNode(true);
+      closeBtn.removeAttribute('id');
+      closeBtn.setAttribute('aria-label', 'Cerrar menú');
+      // Asegura el icono accesible
+      const sr = closeBtn.querySelector('.sr-only');
+      if (sr) sr.textContent = 'Cerrar menú';
+      closeBtn.addEventListener('click', () => setOpen(false));
+      bar.appendChild(closeBtn);
+
+      // Inserta como PRIMER hijo dentro de la capa con backdrop
+      bgLayer.prepend(bar);
+
+      ghostHeader = bar;
+      return bar;
+    };
+
+    // ===== Abrir / cerrar =====
+    const setOpen = (open) => {
+      // Mostrar/ocultar overlay
+      overlay.classList.toggle('hidden', !open);
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+      // Mientras está abierto:
+      // 1) Hacemos el overlay de pantalla completa para que el backdrop sea continuo
+      // 2) Ocultamos el header real (para que no haya "junta")
+      // 3) Creamos/mostramos el header fantasma dentro del overlay
+      if (open) {
+        overlay.classList.add('inset-0');
+        overlay.classList.remove('top-[var(--header-h,-1px)]');
+
+        header.classList.add('opacity-0','pointer-events-none');
+
+        ensureGhostHeader(); // crea si no existe
+        if (ghostHeader) ghostHeader.classList.remove('hidden');
+      } else {
+        overlay.classList.remove('inset-0');
+        overlay.classList.add('top-[var(--header-h,-1px)]');
+
+        header.classList.remove('opacity-0','pointer-events-none');
+
+        if (ghostHeader) ghostHeader.classList.add('hidden');
+      }
+    };
+
+    const toggleMenu = () => setOpen(overlay.classList.contains('hidden'));
+    menuBtn.addEventListener('click', toggleMenu);
+
+    // --- Cerrar al pasar a escritorio ---
+    window.addEventListener('resize', () => {
+      const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+      if (isDesktop) setOpen(false);
+      if (!isMenuOpen()) maybeClearAtTopOrHero();
+      setHeaderH();
     });
 
-    // ===== CONFIG =====
-    const ACTIVE_CLASSES   = ['font-bold','scale-105','underline','underline-offset-8','decoration-2'];
-    const INACTIVE_CLASSES = ['font-medium','no-underline','scale-100'];
-    const LINK_BASE_CLASSES = ['inline-block', 'transition', 'duration-200', 'ease-out', 'transform-gpu'];
+    // ===== Activo en navegación / IO (sin cambios) =====
+    const ACTIVE_CLASSES    = ['font-bold','scale-105','underline','underline-offset-8','decoration-2'];
+    const INACTIVE_CLASSES  = ['font-medium','no-underline','scale-100'];
+    const LINK_BASE_CLASSES = ['inline-block','transition','duration-200','ease-out','transform-gpu'];
 
-    const ACTIVE_THRESHOLD = 0.5; // 0..1 -> % visible requerido
-    const TOP_BAND = 35;          // % viewport ignorado arriba
-    const BOTTOM_BAND = 55;       // % ignorado abajo
-    const CLEAR_TOP_OFFSET = 8;   // px desde el top para considerar "arriba del todo"
-    const IGNORE_ID = 'presentacion'; // sección hero que no queremos resaltar
-    // ===================
+    const ACTIVE_THRESHOLD  = 0.5;
+    const TOP_BAND          = 35;
+    const BOTTOM_BAND       = 55;
+    const CLEAR_TOP_OFFSET  = 8;
+    const IGNORE_ID         = 'presentacion';
 
-    const links = Array.from(menu.querySelectorAll('a[href^="#"]'));
-    const sections = links
-      .map(a => document.querySelector(a.getAttribute('href') || ''))
-      .filter(Boolean);
+    const allLinks = [
+      ...desktopNav.querySelectorAll('a[href^="#"]'),
+      ...mobileNav.querySelectorAll('a[href^="#"]')
+    ];
+    const uniqueHrefs = [...new Set(allLinks.map(a => a.getAttribute('href') || ''))];
+    const sections = uniqueHrefs.map(h => document.querySelector(h)).filter(Boolean);
 
-    // clases base en todos los enlaces
-    links.forEach(a => LINK_BASE_CLASSES.forEach(c => a.classList.add(c)));
+    allLinks.forEach(a => LINK_BASE_CLASSES.forEach(c => a.classList.add(c)));
 
     const clearActive = () => {
-      links.forEach(a => {
+      allLinks.forEach(a => {
         a.classList.remove(...ACTIVE_CLASSES);
         INACTIVE_CLASSES.forEach(c => a.classList.add(c));
         a.removeAttribute('data-active');
       });
     };
-
-    const setActive = (el) => {
+    const setActiveByHref = (href) => {
       clearActive();
-      ACTIVE_CLASSES.forEach(c => el.classList.add(c));
-      el.setAttribute('data-active', 'true');
+      allLinks.filter(a => a.getAttribute('href') === href)
+        .forEach(a => { ACTIVE_CLASSES.forEach(c => a.classList.add(c)); a.setAttribute('data-active','true'); });
     };
 
-    // --- Lógica para "no marcar" arriba o en #presentacion ---
     const hero = document.getElementById(IGNORE_ID);
-
     const inDecisionBand = (rect) => {
       const vh = window.innerHeight;
       const bandTop = vh * (TOP_BAND / 100);
@@ -91,45 +219,41 @@
       requestAnimationFrame(() => {
         scrollRaf = false;
 
-        // Arriba del todo
+        if (isMenuOpen()) return;
+
         if (window.scrollY <= CLEAR_TOP_OFFSET) {
+          hideAvatar();
           clearActive();
-          return true;
+          return;
         }
-        // Dentro de la banda con #presentacion
         if (hero) {
           const r = hero.getBoundingClientRect();
           if (inDecisionBand(r)) {
+            hideAvatar();
             clearActive();
-            return true;
+            return;
           }
         }
-        return false;
+        showAvatar();
       });
     };
 
     window.addEventListener('scroll', maybeClearAtTopOrHero, { passive: true });
-    window.addEventListener('resize', maybeClearAtTopOrHero);
 
-    // --- IntersectionObserver para el resto de secciones ---
     if (sections.length && 'IntersectionObserver' in window) {
-      const thresholds = Array.from({ length: 21 }, (_, i) => i / 20); // 0, .05, ..., 1
+      const thresholds = Array.from({ length: 21 }, (_, i) => i / 20);
       const ratios = new Map();
       let rafPending = false;
 
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => ratios.set(entry.target.id, entry.intersectionRatio));
-
         if (rafPending) return;
         rafPending = true;
 
         requestAnimationFrame(() => {
           rafPending = false;
 
-          // Si estamos arriba o en el hero, no marcar nada
-          // (si devuelve true, ya ha limpiado y salimos)
-          const cleared = maybeClearAtTopOrHero();
-          // maybeClearAtTopOrHero usa rAF; para este tick tomamos window.scrollY directo:
+          if (isMenuOpen()) return;
           if (window.scrollY <= CLEAR_TOP_OFFSET) return;
           if (hero && inDecisionBand(hero.getBoundingClientRect())) return;
 
@@ -153,13 +277,11 @@
             }
           });
 
-          // Fallback: la más visible si ninguna supera umbral
           if (!bestId) {
             ratios.forEach((r, id) => { if (r > bestRatio) { bestRatio = r; bestId = id; } });
           }
 
-          const link = bestId && links.find(a => a.getAttribute('href') === `#${bestId}`);
-          if (link) setActive(link);
+          if (bestId) setActiveByHref(`#${bestId}`);
         });
       }, {
         root: null,
@@ -170,26 +292,31 @@
       sections.forEach(sec => io.observe(sec));
     }
 
-    // Click en enlaces: si es el hero o #top, limpiar; si no, activar
-    links.forEach(a => {
+    // Cerrar panel al hacer click en enlaces
+    const closeOnLinkClick = () => {
+      if (isMenuOpen()) setOpen(false);
+      maybeClearAtTopOrHero();
+    };
+    allLinks.forEach(a => {
       a.addEventListener('click', () => {
         const href = a.getAttribute('href') || '';
-        if (href === `#${IGNORE_ID}` || href === '#top') {
+        if (href === '#presentacion' || href === '#top') {
+          hideAvatar();
           clearActive();
         } else {
-          setActive(a);
+          showAvatar();
+          setActiveByHref(href);
         }
-        if (!menu.classList.contains('md:flex')) menu.classList.add('hidden');
+        closeOnLinkClick();
       });
     });
 
-    // Estado inicial: ninguno activo
+    // Estado inicial
     clearActive();
-    // Si llegas con hash en la URL (y no es el hero), activar ese
-    if (location.hash && location.hash !== `#${IGNORE_ID}`) {
-      const initial = links.find(a => a.getAttribute('href') === location.hash);
-      if (initial) setActive(initial);
+    maybeClearAtTopOrHero();
+    if (location.hash && location.hash !== '#presentacion') {
+      setActiveByHref(location.hash);
+      showAvatar();
     }
   });
 </script>
-
