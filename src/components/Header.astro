@@ -3,7 +3,7 @@ import avatar from '../assets/github_profile_pic.jpg';
 import { Image } from 'astro:assets';
 ---
 <header class="fixed inset-x-0 top-0 z-50">
-  <nav class="w-full bg-black/20 backdrop-blur-xl">
+  <nav class="w-full  bg-gray-300/50 dark:bg-gray-900/50 backdrop-blur-lg">
     <div class="lg:max-w-4xl md:max-w-2xl mx-auto p-4 flex items-center justify-between relative">
       <!-- Marca -->
       <a id="nav-avatar"
@@ -35,41 +35,40 @@ import { Image } from 'astro:assets';
         </svg>
       </button>
     </div>
+
+    <!-- Menú colapsable dentro del nav -->
+    <div id="mobile-collapsible"
+        class="md:hidden w-full grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-300 pointer-events-none">
+      <div class="min-h-0">
+        <ul id="mobile-nav" class="flex flex-col items-center justify-center gap-2 text-base font-medium py-4">
+          <li><a class="py-2 px-4" href="#formacion">Formación</a></li>
+          <li><a class="py-2 px-4" href="#proyectos">Proyectos</a></li>
+          <li><a class="py-2 px-4" href="#sobre-mi">Sobre mí</a></li>
+          <li><a class="py-2 px-4" href="#habilidades">Habilidades</a></li>
+          <li><a class="py-2 px-4" href="mailto:javitin.dev@gmail.com">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
 </header>
 
-<!-- Panel móvil: extensión del header, sin backdrop ni bloqueo -->
-<div id="mobile-menu"
-     class="fixed left-0 right-0 top-[var(--header-h,-1px)] z-40 hidden pointer-events-none">
-  <!-- usa mismas max-width y padding lateral que el header -->
-  <div class="lg:max-w-4xl md:max-w-2xl mx-auto pointer-events-auto">
-    <div class="bg-black/20 backdrop-blur-xl">
-      <ul id="mobile-nav" class="flex flex-col items-center justify-center gap-2 text-base font-medium py-4">
-        <li><a class="py-2 px-4" href="#formacion">Formación</a></li>
-        <li><a class="py-2 px-4" href="#proyectos">Proyectos</a></li>
-        <li><a class="py-2 px-4" href="#sobre-mi">Sobre mí</a></li>
-        <li><a class="py-2 px-4" href="#habilidades">Habilidades</a></li>
-        <li><a class="py-2 px-4" href="mailto:javitin.dev@gmail.com">Contacto</a></li>
-      </ul>
-    </div>
-  </div>
 </div>
 
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    // --- Elementos base ---
+    // --- Elementos ---
     const header     = document.querySelector('header');
     const navBar     = document.querySelector('header nav');
     const menuBtn    = document.getElementById('menu-button');
-    const overlay    = document.getElementById('mobile-menu');
+    const panel      = document.getElementById('mobile-collapsible'); // nuevo contenedor
     const navAvatar  = document.getElementById('nav-avatar');
     const desktopNav = document.getElementById('desktop-nav');
     const mobileNav  = document.getElementById('mobile-nav');
 
-    if (!menuBtn || !overlay || !desktopNav || !mobileNav || !header || !navBar) return;
+    if (!menuBtn || !panel || !desktopNav || !mobileNav) return;
 
-    // --- Altura del header (usada por layout/offsets) ---
+    // --- Altura header (por si la usas en otros cálculos) ---
     const setHeaderH = () => {
       const h = header?.offsetHeight || 56;
       document.documentElement.style.setProperty('--header-h', `${h}px`);
@@ -77,12 +76,11 @@ import { Image } from 'astro:assets';
     setHeaderH();
     window.addEventListener('resize', setHeaderH);
 
-    // --- Detección de estado ---
+    // --- Estado del menú y helpers avatar ---
     const isMenuOpen = () =>
-      !overlay.classList.contains('hidden') &&
+      panel.hasAttribute('data-open') &&
       window.matchMedia('(max-width: 767px)').matches;
 
-    // --- Avatar helpers (tal cual tenías) ---
     const showAvatar = () => {
       if (!navAvatar) return;
       navAvatar.classList.remove('opacity-0','scale-95','pointer-events-none');
@@ -94,76 +92,19 @@ import { Image } from 'astro:assets';
       navAvatar.classList.remove('opacity-100','scale-100');
     };
 
-    // ===== Header "fantasma" dentro del panel =====
-    // Se crea on-demand al abrir; clona la marca y el botón.
-    let ghostHeader; // cache
-    const ensureGhostHeader = () => {
-      if (ghostHeader) return ghostHeader;
-
-      // Capa con backdrop del panel (el <div> que envuelve al <ul>)
-      const bgLayer =
-        overlay.querySelector(':scope > div > div') ||
-        overlay; // fallback por si cambias el markup
-
-      // Contenedor
-      const bar = document.createElement('div');
-      bar.id = 'mobile-menu-header';
-      bar.className = 'lg:max-w-4xl md:max-w-2xl mx-auto p-4 flex items-center justify-between relative';
-
-      // Marca (clon del avatar/link, sin id duplicado)
-      const brand = navAvatar ? navAvatar.cloneNode(true) : document.createElement('div');
-      brand.removeAttribute('id');
-      bar.appendChild(brand);
-
-      // Botón "cerrar" (clon del hamburguesa, mismo estilo)
-      const closeBtn = menuBtn.cloneNode(true);
-      closeBtn.removeAttribute('id');
-      closeBtn.setAttribute('aria-label', 'Cerrar menú');
-      // Asegura el icono accesible
-      const sr = closeBtn.querySelector('.sr-only');
-      if (sr) sr.textContent = 'Cerrar menú';
-      closeBtn.addEventListener('click', () => setOpen(false));
-      bar.appendChild(closeBtn);
-
-      // Inserta como PRIMER hijo dentro de la capa con backdrop
-      bgLayer.prepend(bar);
-
-      ghostHeader = bar;
-      return bar;
-    };
-
-    // ===== Abrir / cerrar =====
+    // --- Abrir/cerrar colapsable (transición con grid-rows) ---
     const setOpen = (open) => {
-      // Mostrar/ocultar overlay
-      overlay.classList.toggle('hidden', !open);
+      panel.classList.toggle('grid-rows-[1fr]', open);
+      panel.classList.toggle('grid-rows-[0fr]', !open);
+      panel.classList.toggle('pointer-events-none', !open);
+      if (open) panel.setAttribute('data-open','true');
+      else panel.removeAttribute('data-open');
       menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-
-      // Mientras está abierto:
-      // 1) Hacemos el overlay de pantalla completa para que el backdrop sea continuo
-      // 2) Ocultamos el header real (para que no haya "junta")
-      // 3) Creamos/mostramos el header fantasma dentro del overlay
-      if (open) {
-        overlay.classList.add('inset-0');
-        overlay.classList.remove('top-[var(--header-h,-1px)]');
-
-        header.classList.add('opacity-0','pointer-events-none');
-
-        ensureGhostHeader(); // crea si no existe
-        if (ghostHeader) ghostHeader.classList.remove('hidden');
-      } else {
-        overlay.classList.remove('inset-0');
-        overlay.classList.add('top-[var(--header-h,-1px)]');
-
-        header.classList.remove('opacity-0','pointer-events-none');
-
-        if (ghostHeader) ghostHeader.classList.add('hidden');
-      }
     };
-
-    const toggleMenu = () => setOpen(overlay.classList.contains('hidden'));
+    const toggleMenu = () => setOpen(!isMenuOpen());
     menuBtn.addEventListener('click', toggleMenu);
 
-    // --- Cerrar al pasar a escritorio ---
+    // Al pasar a escritorio, cerrar si estaba abierto (evita bugs)
     window.addEventListener('resize', () => {
       const isDesktop = window.matchMedia('(min-width: 768px)').matches;
       if (isDesktop) setOpen(false);
@@ -171,7 +112,7 @@ import { Image } from 'astro:assets';
       setHeaderH();
     });
 
-    // ===== Activo en navegación / IO (sin cambios) =====
+    // ===== CONFIG enlaces activos / IO =====
     const ACTIVE_CLASSES    = ['font-bold','scale-105','underline','underline-offset-8','decoration-2'];
     const INACTIVE_CLASSES  = ['font-medium','no-underline','scale-100'];
     const LINK_BASE_CLASSES = ['inline-block','transition','duration-200','ease-out','transform-gpu'];
@@ -292,29 +233,26 @@ import { Image } from 'astro:assets';
       sections.forEach(sec => io.observe(sec));
     }
 
-    // Cerrar panel al hacer click en enlaces
-    const closeOnLinkClick = () => {
-      if (isMenuOpen()) setOpen(false);
-      maybeClearAtTopOrHero();
-    };
+    // Cerrar al clickar un enlace
     allLinks.forEach(a => {
       a.addEventListener('click', () => {
         const href = a.getAttribute('href') || '';
-        if (href === '#presentacion' || href === '#top') {
+        if (href === `#${IGNORE_ID}` || href === '#top') {
           hideAvatar();
           clearActive();
         } else {
           showAvatar();
           setActiveByHref(href);
         }
-        closeOnLinkClick();
+        if (isMenuOpen()) setOpen(false);
+        maybeClearAtTopOrHero();
       });
     });
 
     // Estado inicial
     clearActive();
     maybeClearAtTopOrHero();
-    if (location.hash && location.hash !== '#presentacion') {
+    if (location.hash && location.hash !== `#${IGNORE_ID}`) {
       setActiveByHref(location.hash);
       showAvatar();
     }
