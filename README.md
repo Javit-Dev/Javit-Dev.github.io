@@ -7,7 +7,7 @@ El objetivo principal de este proyecto ha sido aprender y practicar Tailwind CSS
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/Javit-Dev/mi-portafolio.git
+git clone https://github.com/Javit-Dev/porfolio-javi.git
 
 # Entrar al directorio
 cd mi-portafolio
@@ -18,6 +18,3 @@ npm install
 # Iniciar el entorno de desarrollo
 npm run dev
 ```
-
-## 🙌 Créditos
-El diseño principal está inspirado en el trabajo de [Midudev](https://porfolio.dev/), adaptado y personalizado para mi propio porfolio.

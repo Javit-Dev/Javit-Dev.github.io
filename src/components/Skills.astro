@@ -10,12 +10,13 @@ import TypescriptIcon from "../components/icons/skills/TypescriptIcon.astro";
 
 import AngularIcon from "../components/icons/skills/AngularIcon.astro";
 import NetIcon from "../components/icons/skills/NetIcon.astro";
-import AndroidIcon from '../components/icons/skills/AndroidIcon.astro';
 import SpringIcon from "../components/icons/skills/SpringIcon.astro";
-import GitIcon from "../components/icons/skills/GitIcon.astro";
+import AstroIcon from "./icons/skills/AstroIcon.astro";
 
-import DockerIcon from "../components/icons/skills/DockerIcon.astro";
+import GitIcon from "../components/icons/skills/GitIcon.astro";
 import PostmanIcon from "../components/icons/skills/PostmanIcon.astro";
+import IntelliJIcon from "../components/icons/skills/IntelliJIcon.astro";
+import VisualStudioIcon from "../components/icons/skills/VisualStudioIcon.astro";
 
 
 const LANGUAGES: SkillsItemProps[] = [
@@ -27,22 +28,30 @@ const LANGUAGES: SkillsItemProps[] = [
 
 const FRAMEWORKS: SkillsItemProps[] = [
   { name: "Angular", icon: AngularIcon },
+  { name: "Spring", icon: SpringIcon },
   { name: ".NET", icon: NetIcon },
-  { name: "Android", icon: AndroidIcon },
-  { name: "Spring", icon: SpringIcon }
 ];
 
 const TOOLS: SkillsItemProps[] = [
   { name: "Git", icon: GitIcon },
-  { name: "Docker", icon: DockerIcon },
-  { name: "Postman", icon: PostmanIcon }
+  { name: "Postman", icon: PostmanIcon },
+  { name: "IntelliJ", icon: IntelliJIcon },
+  { name: "VSC", icon: VisualStudioIcon }
+];
+
+const STYLES: SkillsItemProps[] = [
+  { name: "TailwindCSS", icon: AstroIcon },
+  { name: "Bootstrap", icon: AstroIcon },
+  { name: "MaterialUI", icon: AstroIcon }
 ];
 ---
 
+
+
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
   <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
-  from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
-  hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
+    from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
+    hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
     <h3 class="text-2xl font-semibold mb-4 text-center">Lenguajes</h3>
     <div class="grid grid-cols-3 gap-2">
       {LANGUAGES.map((language) => (
@@ -50,9 +59,10 @@ const TOOLS: SkillsItemProps[] = [
       ))}
     </div>
   </article>
-    <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
-  from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
-  hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
+
+  <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
+    from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
+    hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
     <h3 class="text-2xl font-semibold mb-4 text-center">Frameworks</h3>
     <div class="grid grid-cols-3 gap-2">
       {FRAMEWORKS.map((framework) => (
@@ -60,9 +70,10 @@ const TOOLS: SkillsItemProps[] = [
       ))}
     </div>
   </article>
-    <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
-  from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
-  hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition col-span-1 md:col-span-2">
+
+  <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
+    from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
+    hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition md:col-span-2">
     <h3 class="text-2xl font-semibold mb-4 text-center">Herramientas</h3>
     <div class="grid grid-cols-3 gap-2">
       {TOOLS.map((tool) => (
