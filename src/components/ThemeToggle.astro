@@ -1,0 +1,26 @@
+---
+import Dark from "./icons/theme/dark.astro";
+import Light from "./icons/theme/light.astro";
+---
+
+<button
+	class="cursor-pointer rounded-full border px-3 py-1 text-sm flex items-center gap-2
+	       bg-white/70 dark:bg-black/40 border-gray-300 dark:border-gray-600
+	       backdrop-blur-sm hover:bg-white/40 dark:hover:bg-black/60 transition"
+	type="button"
+	aria-label="Cambiar tema"
+	onclick="(function() {
+		const html = document.documentElement;
+		const isDark = html.classList.contains('dark');
+		if (isDark) {
+			html.classList.remove('dark');
+			localStorage.setItem('theme', 'light');
+		} else {
+			html.classList.add('dark');
+			localStorage.setItem('theme', 'dark');
+		}
+	})()"
+>
+	<span class="inline-block dark:hidden"> <Dark /></span>
+	<span class="hidden dark:inline-block"> <Light /></span>
+</button>

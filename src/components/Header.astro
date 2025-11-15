@@ -1,6 +1,7 @@
 ---
 import avatar from '../assets/github_profile_pic.jpg';
 import { Image } from 'astro:assets';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 <header class="fixed inset-x-0 top-0 z-50">
   <nav class="w-full  bg-gray-300/50 dark:bg-gray-900/50 backdrop-blur-lg">
@@ -23,6 +24,7 @@ import { Image } from 'astro:assets';
         <li><a href="#sobre-mi"    class="py-2 px-3 hover:opacity-80">Sobre mí</a></li>
         <li><a href="#habilidades" class="py-2 px-3 hover:opacity-80">Habilidades</a></li>
         <li><a href="mailto:javier.moreno.cano.work@gmail.com" class="py-2 px-3 hover:opacity-80">Contacto</a></li>
+        <ThemeToggle/>
       </ul>
 
       <!-- Botón hamburguesa -->
