@@ -19,17 +19,32 @@ const { title, description, image, tags, link, github } = Astro.props as Props;
     <p class="text-black/80 dark:text-white/80">{description}</p>
     <div class="flex flex-wrap gap-2">
       {tags.map((tag) => (
-        <span class="bg-black/10 text-black/80 dark:bg-white/10 text-sm dark:text-white/80 px-2 py-1 rounded-full">{tag}</span>
+        <span class="bg-black/10 text-black/80 dark:bg-white/10 text-sm dark:text-white/80 px-2 py-1 rounded-full">
+          {tag}
+        </span>
       ))}
     </div>
-      <div class=" flex gap-4 mt-2">
-        {link && (
-          <a href={link} target="_blank" class="text-blue-500 hover:underline">Ver proyecto</a>
-        )}
-        {github && (
-          <a href={github} target="_blank" class="flex flex-row gap-2 justify-center items-center bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 hover:bg-black/15 dark:hover:bg-white/15 transition">
-            <GithubIcon/>Ver código</a>
-        )}
-      </div>
+
+    <div class="flex gap-4 mt-2">
+      {link && (
+        <a
+          href={link}
+          target="_blank"
+          class="flex flex-row gap-2 justify-center items-center bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 hover:bg-black/15 dark:hover:bg-white/15 transition"
+        >
+          Ver proyecto
+        </a>
+      )}
+      {github && (
+        <a
+          href={github}
+          target="_blank"
+          class="flex flex-row gap-2 justify-center items-center bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 hover:bg-black/15 dark:hover:bg-white/15 transition"
+        >
+          <GithubIcon />
+          Ver código
+        </a>
+      )}
+    </div>
   </div>
 </article>

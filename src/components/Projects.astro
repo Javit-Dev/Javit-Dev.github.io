@@ -3,6 +3,8 @@ import ProjectsItem from "./ProjectsItem.astro";
 import type { Props as ProjectItemProps } from "./ProjectsItem.astro";
 import proyecto1 from '../assets/projects/proyecto1.webp';
 import proyecto2 from '../assets/projects/proyecto2.webp';
+import proyecto3 from '../assets/projects/proyecto3.webp';
+import proyecto4 from '../assets/projects/proyecto4.webp';
 
 const PROJECTS: ProjectItemProps[] = [
   {
@@ -20,6 +22,22 @@ const PROJECTS: ProjectItemProps[] = [
     image: proyecto2,
     tags: [".NET", "C#", "WPF"],
     github: "https://github.com/Javit-Dev/IPOkemon",
+  },
+  {
+    title: "Proyecto (FP Superior) - Moscosos",
+    description:
+      `Aplicación web para el IES Maestre de Calatrava que permite gestionar los días de libre disposición de unos 100 profesores y que estuvo en uso durante varios años.`,
+    image: proyecto3,
+    tags: ["Angular", "MySQL", "PHP"],
+    link: "https://iesmaestredecalatrava.es/moscosos/"
+  },
+  {
+    title: "RemoteTypes",
+    description:
+      `Servicio de almacenamiento distribuido de listas, conjuntos y diccionarios remotos en Python usando ZeroC Ice, integrado con Apache Kafka para procesar operaciones vía eventos JSON. Incluye persistencia configurable, cliente tolerante a duplicados mediante consumer groups y batería de tests unitarios y análisis estático ejecutados en GitHub Actions.`,
+    image: proyecto4,
+    tags: ["Python", "ZeroC Ice", "Apache Kafka", "GitHub Actions"],
+    github: "https://github.com/Javit-Dev/remote-types-Distribuidos-2024",
   },
 ];
 ---
