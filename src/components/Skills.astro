@@ -18,6 +18,9 @@ import PostmanIcon from "../components/icons/skills/PostmanIcon.astro";
 import IntelliJIcon from "../components/icons/skills/IntelliJIcon.astro";
 import VisualStudioIcon from "../components/icons/skills/VisualStudioIcon.astro";
 
+import DockerIcon from "../components/icons/skills/DockerIcon.astro";
+
+
 
 const LANGUAGES: SkillsItemProps[] = [
   { name: "Python", icon: PythonIcon },
@@ -39,10 +42,9 @@ const TOOLS: SkillsItemProps[] = [
   { name: "VSC", icon: VisualStudioIcon }
 ];
 
-const STYLES: SkillsItemProps[] = [
-  { name: "TailwindCSS", icon: AstroIcon },
-  { name: "Bootstrap", icon: AstroIcon },
-  { name: "MaterialUI", icon: AstroIcon }
+const WANT_TO_LEARN: SkillsItemProps[] = [
+  { name: "Docker", icon: DockerIcon },
+  { name: "Astro", icon: AstroIcon },
 ];
 ---
 
@@ -73,11 +75,22 @@ const STYLES: SkillsItemProps[] = [
 
   <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
     from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
-    hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition md:col-span-2">
+    hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
     <h3 class="text-2xl font-semibold mb-4 text-center">Herramientas</h3>
     <div class="grid grid-cols-3 gap-2">
       {TOOLS.map((tool) => (
         <SkillsItem {...tool} />
+      ))}
+    </div>
+  </article>
+
+  <article class="border border-black/10 dark:border-white/10 rounded-2xl p-6 bg-gradient-to-b
+    from-black/5 to-black/2 dark:from-white/5 dark:to-white/2
+    hover:from-black/10 hover:to-black/5 dark:hover:from-white/10 dark:hover:to-white/5 transition">
+    <h3 class="text-2xl font-semibold mb-4 text-center">Quiero aprender/dominar</h3>
+    <div class="grid grid-cols-3 gap-2">
+      {WANT_TO_LEARN.map((skill) => (
+        <SkillsItem {...skill} />
       ))}
     </div>
   </article>
