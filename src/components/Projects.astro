@@ -5,6 +5,7 @@ import proyecto1 from '../assets/projects/proyecto1.webp';
 import proyecto2 from '../assets/projects/proyecto2.webp';
 import proyecto3 from '../assets/projects/proyecto3.webp';
 import proyecto4 from '../assets/projects/proyecto4.webp';
+import WIP from '../assets/projects/wip.webp';
 
 const PROJECTS: ProjectItemProps[] = [
   {
@@ -39,10 +40,16 @@ const PROJECTS: ProjectItemProps[] = [
     tags: ["Angular", "MySQL", "PHP"],
     link: "https://iesmaestredecalatrava.es/moscosos/"
   },
+  {
+    title: "Gramola",
+    description:
+      `Proyecto del laboratorio de Tecnologías y Sistemas Web: aplicación web full-stack que integra autenticación de usuarios, monetización mediante Stripe y consumo de la API de Spotify. La plataforma permite a los usuarios realizar pagos para reproducir canciones dentro de la aplicación.`,
+    image: WIP,
+    tags: ["Angular", "Spring", "Angular Material", "Stripe", "Spotify API", "JWT", "OAuth", "Selenium"]
+  }
 
 ];
 ---
-
 <ol class="space-y-12">
 {PROJECTS.map((project) => (
     <li>
